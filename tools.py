@@ -1,16 +1,18 @@
-def lecture(fichier : str) -> None:
+# Implantations d’outils : lecture / ecriture
+
+def lecture(fichier : str) -> str:
     """
-    Lit un fichier binaire et affiche son contenu sous la forme d'une chaîne de bits.
+    Lit un fichier binaire et retourne son contenu sous la forme d'une chaîne de bits.
 
     Args:
-        fichier (str): Nom du fichier binaire à lire
+        fichier (str): Nom du fichier binaire à lire, contient un nombre de bits multiple de 8.
 
     Returns:
-        None
+        str : Chaîne représentant le contenu binaire du fichier, sous forme de bits.
 
     Raises:
-        TypeError: Si le nom du fichier n'est pas une chaîne de caractères
-        ValueError: Si le nom du fichier ne se termine pas par .bin
+        TypeError: Si 'fichier' n'est pas une chaîne de caractères.
+        ValueError: Si 'fichier' ne se termine pas par l'extension `.bin`.
     """
     if not isinstance(fichier, str):
         raise TypeError("'"+fichier+"' doit être une chaîne de caractères")
@@ -22,17 +24,18 @@ def lecture(fichier : str) -> None:
     with open(fichier, "rb") as f:
         contenu = f.read()
 
-        # Écriture binaire
+        # Lecture binaire
         binaire = ""
         for i in range(len(contenu)):
             binaire += f"{contenu[i]:08b}"
         
-        print(binaire)
+        return binaire
 
 
 def ecriture(fichier_chaine : str, fichier_binaire : str) -> None:
     """
-    Ecrit le contenu de 'fichier_chaine' dans le fichier binaire 'fichier_binaire'.
+    Ecrit le contenu de 'fichier_chaine' dans le fichier binaire 'fichier_binaire'.<br>
+    Si le fichier d'origine ne contient pas un nombre de bits multiple de 8, il complète par des 0 dans le .bin de destination.
 
     Args:
         fichier_chaine (str): Nom du fichier contenant des bits.
@@ -42,7 +45,7 @@ def ecriture(fichier_chaine : str, fichier_binaire : str) -> None:
         None
 
     Raises:
-        TypeError: Si le nom d'un des deux fichiers n'est pas une chaîne de caractères
+        TypeError: Si le nom d'un des deux fichiers n'est pas une chaîne de caractères.
         ValueError:  Si :
             - fichier_chaine ne se termine pas par .txt.
             - fichier_binaire ne se termine pas par .bin.
