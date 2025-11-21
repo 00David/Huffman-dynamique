@@ -1,0 +1,1 @@
+TestPerfSamples/Binaires/exemple1.huff;TestPerfSamples/Textes/exemple1_decompresse.txt;1245;2194;1.76225;186.974

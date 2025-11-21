@@ -1,0 +1,22 @@
+Principe : Pour rappel, la méthode de Huffman compresse un texte de façon optimale en codant les
+caractères les plus fréquents par les codes les plus courts. L’algorithme de Huffman dynamique construit
+un arbre de Huffman adaptatif qui évolue au fur et à mesure de la lecture et du traitement (compression ou décompression) des symboles. L’algorithme de compression (compresseur) et l’algorithme de
+décompression (décompresseur) modifient l’arbre de la même façon, de telle sorte qu’à chaque instant
+ils utilisent les mêmes codes (mais ces codes changent au cours du temps).
+Initialement le compresseur démarre avec un arbre vide : aucun symbole n’a encore reçu de code. Le
+premier symbole lu est transmis avec son codage initial (UTF-8). Ce symbole est alors ajouté à l’arbre
+et reçoit ainsi un code (de longueur variable). La prochaine fois que ce symbole sera rencontré, le
+compresseur transmettra son code actuel et incrémentera sa fréquence. Il se peut alors que l’arbre ne
+soit plus un arbre de Huffman adaptatif (AHA) et si c’est le cas, le compresseur le modifie, ce qui
+implique une modification des codes.
+Le décompresseur travaille de la même façon : lorsqu’il lit le code initial d’un symbole UTF-8, il l’ajoute
+à l’arbre et lui affecte ainsi un nouveau code ; lorsqu’il lit un code de longueur variable, il utilise l’arbre
+courant pour déterminer le symbole correspondant, puis il modifie l’arbre de la même manière que le
+compresseur.
+Il faut bien sûr que le décompresseur sache si le code qu’il lit est un codage initial UTF-8 ou un
+code de longueur variable (représentant un synmbole déjà vu) : pour cela chaque codage initial est
+précédé d’un code spécial d’échappement, de longueur variable. Ainsi lorsque le décompresseur lit ce
+code d’échappement, il sait qu’il faut lire un symbole en codé avec UTF-8 qui n’est pas encore apparu
+dans le texte compressé lu jusque là.
+La valeur du code spécial d’échappement évolue aussi au cours du traitement : pour ce faire, on ajoute
+à l’arbre une feuille spéciale #, de fréquence 0, dont la position dans l’arbre varie au cours du temps.

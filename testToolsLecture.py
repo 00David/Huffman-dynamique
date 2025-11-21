@@ -1,17 +1,25 @@
 from tools import lecture
 import sys
 
-if len(sys.argv) != 2:
-    print("Usage : python3 testToolsLecture.py *.bin")
-    sys.exit(1)
+"""
+On teste la lecture du contenu d'un fichier binaire.
 
-print("Lecture du fichier "+sys.argv[1]+" ...\n")
+Argument 1 : Un fichier binaire source
+"""
 
-chaine = lecture(sys.argv[1])
+if __name__ == "__main__":
 
-print("Résultat lecture :")
-print(chaine)
+    if len(sys.argv) != 2:
+        print("Usage : python3 "+sys.argv[0]+" <fichier_binaire>")
+        sys.exit(1)
 
-chaine_espaces = ' '.join(chaine[i:i+8] for i in range(0, len(chaine), 8))
-print("Par octets :")
-print(chaine_espaces)
+    print("Lecture du fichier "+sys.argv[1]+" ...\n")
+
+    chaine = lecture(sys.argv[1])
+
+    print("Résultat lecture :")
+    print(chaine)
+
+    chaine_espaces = ' '.join(chaine[i:i+8] for i in range(0, len(chaine), 8))
+    print("Par octets :")
+    print(chaine_espaces)

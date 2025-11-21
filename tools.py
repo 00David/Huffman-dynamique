@@ -12,14 +12,15 @@ def lecture(fichier : str) -> str:
 
     Raises:
         TypeError: Si 'fichier' n'est pas une chaîne de caractères.
-        ValueError: Si 'fichier' ne se termine pas par l'extension `.bin`.
+        ValueError: Si 'fichier' ne se termine pas par l'extension .bin ou .huff.
     """
     if not isinstance(fichier, str):
         raise TypeError("'"+fichier+"' doit être une chaîne de caractères")
     
-    suffixe = fichier[-4:]
-    if (suffixe != ".bin"):
-        raise ValueError("'"+fichier+"' doit être un fichier .bin")
+    suffixe_binaire = fichier[-4:]
+    suffixe_huff = fichier[-5:]
+    if (suffixe_binaire != ".bin" and suffixe_huff != ".huff"):
+        raise ValueError("'"+fichier+"' doit être un fichier .bin ou .huff")
 
     with open(fichier, "rb") as f:
         contenu = f.read()
@@ -35,7 +36,7 @@ def lecture(fichier : str) -> str:
 def ecriture(fichier_chaine : str, fichier_binaire : str) -> None:
     """
     Ecrit le contenu de 'fichier_chaine' dans le fichier binaire 'fichier_binaire'.<br>
-    Si le fichier d'origine ne contient pas un nombre de bits multiple de 8, il complète par des 0 dans le .bin de destination.
+    Si le fichier d'origine ne contient pas un nombre de bits multiple de 8, il  est complété par des 0 dans le binaire de destination.
 
     Args:
         fichier_chaine (str): Nom du fichier contenant des bits.
@@ -47,24 +48,21 @@ def ecriture(fichier_chaine : str, fichier_binaire : str) -> None:
     Raises:
         TypeError: Si le nom d'un des deux fichiers n'est pas une chaîne de caractères.
         ValueError:  Si :
-            - fichier_chaine ne se termine pas par .txt.
-            - fichier_binaire ne se termine pas par .bin.
+            - fichier_binaire ne se termine pas par .bin ou .huff.
             - fichier_chaine ne contient pas que des '0' et des '1'. 
     """
+
     if not isinstance(fichier_chaine, str):
         raise TypeError("'"+fichier_chaine+"' doit être une chaîne de caractères")
     if not isinstance(fichier_binaire, str):
         raise TypeError("'"+fichier_binaire+"' doit être une chaîne de caractères")
     
-    suffixe_chaine = fichier_chaine[-4:]
-    if (suffixe_chaine != ".txt"):
-        raise ValueError("'"+fichier_chaine+"' doit être un fichier .txt")
-    
     suffixe_binaire = fichier_binaire[-4:]
-    if (suffixe_binaire != ".bin"):
-        raise ValueError("'"+fichier_binaire+"' doit être un fichier .bin")
+    suffixe_huff = fichier_binaire[-5:]
+    if (suffixe_binaire != ".bin" and suffixe_huff != ".huff"):
+        raise ValueError("'"+fichier_binaire+"' doit être un fichier .bin ou .huff")
 
-    with open(fichier_chaine, "r") as f:
+    with open(fichier_chaine, "r", encoding="utf-8") as f:
         contenu = f.read()
 
         l = 0 # Nombre de bits
@@ -83,3 +81,51 @@ def ecriture(fichier_chaine : str, fichier_binaire : str) -> None:
         # Écriture binaire
         with open(fichier_binaire, "wb") as f2:
             f2.write(bytes(octets))
+
+def charToBits(c : str) ->str:
+    """
+    Transforme un caractère UTF-8 en sa chaîne de bits.
+
+    Args:
+        c (str): Un caractère UTF-8.
+
+    Returns:
+        str : La chaîne de bits correspondante, sans espaces. (entre 1 et 4 octets complets)
+    """
+    utf8_bytes = c.encode('utf-8') # Conversion en bytes UTF-8
+    bits = ' '.join(f'{byte:08b}' for byte in utf8_bytes) # Conversion de chaque byte en bits
+    bits = bits.replace(' ', '') # Supprime les espaces
+    return bits
+
+def bitsToChar(bits: str, i : int) -> tuple[str, int]:
+    """
+    Lit à partir de 'i' une séquence de bits et renvoie le caractère UTF-8 décodé ainsi que le nombre d'octets lus.
+
+    Args:
+        bits (str): La chaîne de bits (sans espaces) contenant le texte encodé en UTF-8.
+        i (int): L'indice de départ dans la chaîne 'bits' pour commencer la lecture.
+
+    Returns:
+        tuple[str, int]:
+            - Le caractère UTF-8 décodé.
+            - Le nombre d'octets lus dans 'bits' pour obtenir ce caractère.
+
+    Raises:
+        ValueError: Si les bits restants sont insuffisants pour former un caractère UTF-8 complet.
+    """
+
+    octets = []
+    nbOctetsLus = 0
+    while True:
+        if (i + 8 > len(bits)):
+            raise ValueError("Bits insuffisants pour décoder le caractère")
+        byte_val = int(bits[i:i+8], 2)
+        octets.append(byte_val)
+        i += 8
+        nbOctetsLus += 1
+        try:
+            c = bytes(octets).decode('utf-8')
+            break  # Décodage réussi
+        except UnicodeDecodeError:
+            continue  # Besoin de plus d'octets
+    return c, nbOctetsLus

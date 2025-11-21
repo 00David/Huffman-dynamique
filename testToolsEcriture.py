@@ -1,12 +1,21 @@
 from tools import ecriture
 import sys
 
-if len(sys.argv) != 3:
-    print("Usage : python3 testToolsEcriture.py *.txt *.bin")
-    sys.exit(1)
+"""
+On teste l'écriture du contenu d'un fichier texte dans un fichier binaire.
 
-print("Ecriture du contenu du fichier "+sys.argv[1]+" dans "+sys.argv[2]+" ...\n")
+Argument 1 : Un fichier textuel source
+Argument 2 : Un fichier binaire de destination
+"""
 
-ecriture(sys.argv[1], sys.argv[2])
+if __name__ == "__main__":
 
-print("Ecriture terminée.")
+    if len(sys.argv) != 3:
+        print("Usage : python3 "+sys.argv[0]+" <fichier_textuel_src> <fichier_binaire_dest>")
+        sys.exit(1)
+
+    print("Ecriture du contenu du fichier "+sys.argv[1]+" dans "+sys.argv[2]+" ...\n")
+
+    ecriture(sys.argv[1], sys.argv[2])
+
+    print("Ecriture terminée.")
