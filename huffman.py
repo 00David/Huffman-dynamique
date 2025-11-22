@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import annotations
 
 # Structure de l'arbre de Huffman
@@ -327,12 +328,12 @@ class ArbreHuffman:
                 self.special.parent.filsDroit = nouveauPere
             self.special.parent = nouveauPere
 
-        if (nouveauPere.filsGauche != None and nouveauPere.filsDroit != None): # Forcément vrai, évite au 'Type checking mode' de l'extension Pylance de VSCode de se plaindre d'un éventuel None
-            nouveauPere.filsGauche.parent = nouveauPere
-            nouveauPere.filsDroit.parent = nouveauPere
+        # Dans tous les cas
+        nouveauPere.filsGauche.parent = nouveauPere
+        nouveauPere.filsDroit.parent = nouveauPere
 
-            nouveauPere.filsGauche.estFilsGauche = True # self.special.estFilsGauche = True
-            nouveauPere.filsDroit.estFilsGauche = False
+        nouveauPere.filsGauche.estFilsGauche = True # self.special.estFilsGauche = True
+        nouveauPere.filsDroit.estFilsGauche = False
         
         self.noeudsCaracteres[s] = Q # Ajout du noeud avec le nouveau caractère dans le dictionnaire
         return nouveauPere
@@ -376,10 +377,9 @@ class ArbreHuffman:
 
             self.swapNoeuds(m, b)
 
-            if (m.parent != None) : # Forcément vrai, évite au 'Type checking mode' de l'extension Pylance de VSCode de se plaindre d'un éventuel None
-                return self.traitement(m.parent)
-            else:
-                raise ValueError("On arrive jamais ici")
+            assert m.parent is not None
+            return self.traitement(m.parent)
+            
 
     def modification(self, s : str) -> ArbreHuffman:
         """
@@ -401,31 +401,26 @@ class ArbreHuffman:
         # Arbre ne contenant pas le nouveau caractère
         elif s not in self.noeudsCaracteres:
             Q = self.special.parent
+            assert Q is not None
             nouveau = self.remplaceSpecial(s)
 
-            if (Q != None): # Forcément vrai, évite au 'Type checking mode' de l'extension Pylance de VSCode de se plaindre d'un éventuel None
-                if (nouveau.estFilsGauche):
-                    Q.filsGauche = nouveau
-                else:
-                     Q.filsDroit = nouveau
-                return self.traitement(Q)
+            if (nouveau.estFilsGauche):
+                Q.filsGauche = nouveau
             else:
-                raise ValueError("On arrive jamais ici")
+                Q.filsDroit = nouveau
+            return self.traitement(Q)
         
         # Arbre contenant déjà une feuille pour le caractère
         else:
             Q = self.getNoeudCaractere(s)
+            assert Q is not None
+
             parcoursGDBH = self.parcoursGDBH()
 
-            if (Q != None) : # Forcément vrai, évite au 'Type checking mode' de l'extension Pylance de VSCode de se plaindre d'un éventuel None
+            if ({Q.parent.filsGauche, Q.parent.filsDroit} == {Q, self.special} and Q.parent == self.finBloc(Q, parcoursGDBH)):
+                Q.poids += 1
+                Q = Q.parent
+                assert Q is not None
+                # Même si on change Q, l'arbre n'est pas modifié donc le parcoursGDBH actuel reste le même : pas besoin de le recalculer
 
-                if (Q.parent != None and Q.parent.filsGauche != None and Q.parent.filsDroit != None): # Forcément vrai, évite au 'Type checking mode' de l'extension Pylance de VSCode de se plaindre d'un éventuel None
-                    if ({Q.parent.filsGauche, Q.parent.filsDroit} == {Q, self.special} and Q.parent == self.finBloc(Q, parcoursGDBH)):
-                        Q.poids += 1
-                        Q = Q.parent
-                        # Même si on change Q, l'arbre n'est pas modifié donc le parcoursGDBH actuel reste le même : pas besoin de le recalculer
-                
-                return self.traitement(Q, parcoursGDBH)
-            
-            else:
-                raise ValueError("On arrive jamais ici")
+            return self.traitement(Q, parcoursGDBH)

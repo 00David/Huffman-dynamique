@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Implantations d’outils : lecture / ecriture
 
 def lecture(fichier : str) -> str:
@@ -125,7 +127,9 @@ def bitsToChar(bits: str, i : int) -> tuple[str, int]:
         nbOctetsLus += 1
         try:
             c = bytes(octets).decode('utf-8')
-            break  # Décodage réussi
+            break # Décodage réussi
         except UnicodeDecodeError:
-            continue  # Besoin de plus d'octets
+            if (i + 8 > len(bits)):
+                raise ValueError("Bits insuffisants pour décoder le caractère")
+            continue # Besoin de plus d'octets
     return c, nbOctetsLus

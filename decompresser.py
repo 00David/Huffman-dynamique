@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from huffman import *
 from tools import *
 import sys
@@ -36,7 +37,7 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
             arbre.modification(c)
 
             l = len(bits)
-            while (i < l):
+            while i + 8 <= l:  # Au moins 1 octet disponible
 
                 noeud = arbre.racine
                 # Parcourt l'arbre de la racine vers une feuille
@@ -53,6 +54,10 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
                 # On est arrivé sur une feuille
                 if isinstance(noeud, ArbreHuffman.NoeudFeuille):
                     if noeud.caractere == "##":
+                        # Vérifie qu'on a bien assez de bits restants
+                        if i + 8 > l:
+                            break  # On arrête proprement (évite un caractère parasite)
+
                         # Lecture du caractère dans les octets suivants
                         c, nbOctetsLus = bitsToChar(bits, i)
                         i += nbOctetsLus * 8
@@ -88,4 +93,6 @@ if __name__ == "__main__":
         print("Usage : python3 "+sys.argv[0]+" <fichier_binaire_src> <fichier_textuel_dest>")
         sys.exit(1)
 
+    print("Début décompression ...\n")
     decompression(sys.argv[1], sys.argv[2])
+    print("Fichier décompressé dans "+sys.argv[2]+" !")

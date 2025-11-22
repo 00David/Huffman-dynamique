@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from huffman import *
 from tools import *
 import sys
@@ -62,4 +63,6 @@ if __name__ == "__main__":
         print("Usage : python3 "+sys.argv[0]+" <fichier_textuel_src> <fichier_binaire_dest>")
         sys.exit(1)
 
+    print("Début compression ...\n")
     compression(sys.argv[1], sys.argv[2])
+    print("Fichier compressé dans "+sys.argv[2]+" !")
