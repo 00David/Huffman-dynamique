@@ -47,10 +47,9 @@ def compression(fichier_texte : str, fichier_binaire : str) -> None:
             with open(fichier_binaire, "wb") as f2:
                 f2.write(bytes(octets))
 
+        taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
         end_time = time.perf_counter()
         temps_compression_ms = round((end_time - start_time) * 1000, 3)
-
-        taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
 
         with open("compression.txt", "a", encoding="utf-8") as infos:
             infos.write(f"{fichier_texte};{fichier_binaire};{nbOctetsEntree};{nbOctetsSortie};{taux_compression};{temps_compression_ms}\n")
@@ -63,6 +62,6 @@ if __name__ == "__main__":
         print("Usage : python3 "+sys.argv[0]+" <fichier_textuel_src> <fichier_binaire_dest>")
         sys.exit(1)
 
-    print("Début compression ...\n")
+    print("Début compression ⏳ ...\n")
     compression(sys.argv[1], sys.argv[2])
     print("Fichier compressé dans "+sys.argv[2]+" !")

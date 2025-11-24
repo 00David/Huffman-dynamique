@@ -130,7 +130,7 @@ class ArbreHuffman:
         Ecriture de l'arbre sous la forme du parcours GDBH
         """
         chaine = ""
-        for n in self.parcoursGDBH():
+        for n in self.parcoursGDBHComplet():
             chaine += str(n) +" "
         return chaine
 
@@ -175,9 +175,9 @@ class ArbreHuffman:
 
         return code
     
-    def parcoursGDBH(self) -> list[Noeud]:
+    def parcoursGDBHComplet(self) -> list[Noeud]:
         """
-        Renvoit les noeuds du parcours GDBH de l'arbre.
+        Renvoit les noeuds du parcours GDBH complet de l'arbre.
 
         Returns:
             list[Noeud]: La liste des noeuds du parcours.
@@ -202,13 +202,71 @@ class ArbreHuffman:
                     matrice[profondeur].append(noeud)
 
                 # Ajout des enfants avec profondeur + 1
+                # Les fils gauches sont toujours append après les droits => les fils gauches sont ensuite parcourus avant leur frère droit (plus haut dans la pile 'noeudsAVoir') 
+                # => parcours de la gauche vers la droite de l'arbre
                 if (noeud.filsDroit != None):
                     noeudsAVoir.append((noeud.filsDroit, profondeur + 1))
                 if (noeud.filsGauche != None):
                     noeudsAVoir.append((noeud.filsGauche, profondeur + 1))
                 noeudsDejaVus.append(noeud)
 
-        matriceInverse = matrice[::-1] # Inversion des lignes
+        matriceInverse = matrice[::-1] # Inversion des lignes, pour passer d'un parcours de l'arbre du haut vers le bas, à bas vers le haut
+        parcours = [noeud for sousListe in matriceInverse for noeud in sousListe] # Applatissement
+        return parcours # Renvoit le parcours GDBH
+    
+    def parcoursGDBHDepuisNoeud(self, noeud : Noeud) -> list[Noeud]:
+        """
+        Variante renvoyant les noeuds du parcours GDBH, partant des noeuds de la profondeur du noeud donné en paramètre.
+        N'effectue donc en général pas le parcours GDBH complet, à moins que le noeud donné soit à la dernière profondeur de l'arbre.
+        Permet un gros speed-up par rapport à l'utilisation de parcoursGDBHComplet.
+        (ça prend 10x moins de temps avec cette version sur la compression/décompression de Blaise_Pacal.txt fourni en exemple).
+        
+        Args:
+            noeud (Noeud): Le noeud, à une profondeur p, pour lequel on va faire le parcours GDBH à partir de cette profondeur p.
+
+        Returns:
+            list[Noeud]: La liste des noeuds du parcours, à partir de la profondeur du noeud donnée en paramètre.
+        """
+
+        # Cas spécial, parcours GDBH depuis la racine
+        if (noeud == self.racine):
+            return [self.racine]
+
+        p = 0 # On calcule la profondeur du noeud en remontant l'arbre
+        n = noeud
+        while (n.parent != None):
+            n = n.parent
+            p += 1
+
+        matrice = [[]] # Contient dans le sous tableau en index i, les noeuds en profondeur i dans l'arbre (dans l'ordre de gauche à droite)
+
+        noeudsDejaVus : list[ArbreHuffman.Noeud] = []
+        noeudsAVoir : list[tuple[ArbreHuffman.Noeud, int]] = [(self.racine, 0)]  # (noeud, profondeur)
+
+        # Parcours en profondeur de l'arbre
+        while (len(noeudsAVoir) > 0):
+            noeud, profondeur = noeudsAVoir.pop()
+            if (noeud not in noeudsDejaVus):
+
+                if (profondeur < len(matrice)):
+                    matrice[profondeur].append(noeud)
+                else: 
+                    # La matrice n'a pas de sous tableau en indice 'profondeur', on ajoute les sous-tableaus vides nécessaires
+                    while (profondeur >= len(matrice)):
+                        matrice.append([])
+                    matrice[profondeur].append(noeud)
+
+                # Ajout des enfants avec profondeur + 1
+                # Les fils gauches sont toujours append après les droits => les fils gauches sont ensuite parcourus avant leur frère droit (plus haut dans la pile 'noeudsAVoir') 
+                # => parcours de la gauche vers la droite de l'arbre
+                if ((profondeur + 1) <= p) : # Seulement fils à une profondeur <= p sont ensuite considérés
+                    if (noeud.filsDroit != None):
+                        noeudsAVoir.append((noeud.filsDroit, profondeur + 1))
+                    if (noeud.filsGauche != None):
+                        noeudsAVoir.append((noeud.filsGauche, profondeur + 1))
+                noeudsDejaVus.append(noeud)
+
+        matriceInverse = matrice[::-1] # Inversion des lignes, pour passer d'un parcours de l'arbre du haut vers le bas, à bas vers le haut
         parcours = [noeud for sousListe in matriceInverse for noeud in sousListe] # Applatissement
         return parcours # Renvoit le parcours GDBH
     
@@ -225,7 +283,7 @@ class ArbreHuffman:
             return noeud
 
         if (parcoursGDBH == []):
-            parcoursGDBH = self.parcoursGDBH()
+            parcoursGDBH = self.parcoursGDBHDepuisNoeud(noeud)
 
         for i in range(parcoursGDBH.index(noeud)+1, len(parcoursGDBH)-1): # dernier i = len(parcoursGDBH)-2. À l'index len(parcoursGDBH)-1, soit le dernier du parcours, il ne reste que la racine.
             if (parcoursGDBH[i].poids < parcoursGDBH[i+1].poids):
@@ -248,7 +306,7 @@ class ArbreHuffman:
             Noeud: Le premier noeud 'm' du chemin tel que son poids == poids noeud suivant dans le chemin. 
         """
         if (parcoursGDBH == []):
-            parcoursGDBH = self.parcoursGDBH()
+            parcoursGDBH = self.parcoursGDBHDepuisNoeud(noeud)
 
         m = noeud
         i_parcoursGDBH = parcoursGDBH.index(m) # On conserve la position du noeud m actuel dans le parcours GDBH
@@ -350,7 +408,7 @@ class ArbreHuffman:
             ArbreHuffman : L'arbre actuel, après modification (pas une copie).
         """
         if (parcoursGDBH == []):
-            parcoursGDBH = self.parcoursGDBH()
+            parcoursGDBH = self.parcoursGDBHDepuisNoeud(Q)
 
         m = self.cheminIncrementable(Q, parcoursGDBH)
 
@@ -415,7 +473,7 @@ class ArbreHuffman:
             Q = self.getNoeudCaractere(s)
             assert Q is not None
 
-            parcoursGDBH = self.parcoursGDBH()
+            parcoursGDBH = self.parcoursGDBHDepuisNoeud(Q)
 
             if ({Q.parent.filsGauche, Q.parent.filsDroit} == {Q, self.special} and Q.parent == self.finBloc(Q, parcoursGDBH)):
                 Q.poids += 1

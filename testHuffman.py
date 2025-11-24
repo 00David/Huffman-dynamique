@@ -15,7 +15,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     chaine = sys.argv[1]
-    print("Insertion de la chaine : "+chaine+" dans un nouvel AHA...\n")
+    print("Insertion de la chaine : "+chaine+" dans un nouvel AHA ⏳ ...\n")
 
     arbre = ArbreHuffman()
     for c in chaine:
@@ -25,7 +25,10 @@ if __name__ == "__main__":
 
 
     for c in set(chaine):
-        print("Code de '"+c+"' : "+arbre.getCodeCaractere(c))
+        noeudC = arbre.getNoeudCaractere(c)
+        assert noeudC is not None
+        frequenceC = noeudC.poids
+        print("Code de '"+c+"', de fréquence "+str(frequenceC)+" : "+arbre.getCodeCaractere(c))
 
     print("Parcours GDBH de l'arbre :")
     print(arbre)

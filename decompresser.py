@@ -77,10 +77,9 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
             with open(fichier_texte, "w", encoding="utf-8") as f2:
                 f2.write(texte)
 
+        taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
         end_time = time.perf_counter()
         temps_compression_ms = round((end_time - start_time) * 1000, 3)
-
-        taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
 
         with open("decompression.txt", "a", encoding="utf-8") as infos:
             infos.write(f"{fichier_binaire};{fichier_texte};{nbOctetsEntree};{nbOctetsSortie};{taux_compression};{temps_compression_ms}\n")
@@ -93,6 +92,6 @@ if __name__ == "__main__":
         print("Usage : python3 "+sys.argv[0]+" <fichier_binaire_src> <fichier_textuel_dest>")
         sys.exit(1)
 
-    print("Début décompression ...\n")
+    print("Début décompression ⏳ ...\n")
     decompression(sys.argv[1], sys.argv[2])
     print("Fichier décompressé dans "+sys.argv[2]+" !")

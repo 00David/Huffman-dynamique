@@ -1,5 +1,8 @@
 # Huffman-dynamique
 
+**David VADIMON**  
+**Eduardo-Dimo ONICA**  
+
 ## Langage utilisé
 
 **Python** : version 3.13.5  
@@ -31,8 +34,9 @@ python3 ./testHuffman.py carambarbcm
 ## Test compression/décompression
 
 Les différents samples de tests sont dans le répertoire *TestPerfSamples*.  
-- Dans son sous-répertoire *Examples* : des samples fournis.  
+- Dans son sous-répertoire *Exemples* : des samples fournis.  
 - Dans son sous-répertoire *Textes* : des fichiers textuels créés (manuellement ou par décompression de binaires).  
+- Dans son sous-répertoire *TextesAleatoires* : des fichiers textes créés aléatoirement par le code python local.    
 - Dans son sous-répertoire *Binaires* : des fichiers binaires créés (par compression de textes).  
 
 ### Compression
@@ -51,6 +55,32 @@ La fonction de décompression est dans *decompresser.py*, les infos des décompr
 Pour utiliser directement le programme de décompression, par exemple depuis le répertoire racine :  
 ```bash
 python3 ./decompresser.py TestPerfSamples/Binaires/exemple1.huff TestPerfSamples/Textes/exemple1_decompresse.txt  
+```
+
+## Génération aléatoire de textes
+
+Les textes sont générés dans le sous-répertoire *TestPerfSamples/TextesAleatoires*, avec le code '*genererTexte.py*' :
+Plusieurs arguments à l'appel :  
+- nom_fichier_a_creer  
+- nb_caracteres_fichier  
+- langue (optionnel) :  
+    - 1 -> tous les caractères français (par défaut)
+    - 2 -> tous les caractères latins
+    - 3 -> tous les caractères UTF-8 affichables
+- unbalanced (optionnel) :  
+    - 0 -> tirage uniforme des caractères (par défaut)
+    - 1 -> tirage non uniforme des caractères
+
+Par exemple l'appel suivant va créer un fichier textuel de 100 caractères français, avec des probas d'apparitions de caractères aléatoires :  
+```bash
+cd TestPerfSamples/TextesAleatoires
+python3 ./genererTexte.py fr_unbalanced_100.txt 100 1 1
+```
+
+Autre exemple, pour lequel un fichier de 1000 caractères utf-8, avec probas uniformes, va être créé :  
+```bash
+cd TestPerfSamples/TextesAleatoires
+python3 ./genererTexte.py utf8_1000.txt 1000 3 0
 ```
 
 ## Rapport

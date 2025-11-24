@@ -14,7 +14,7 @@ if __name__ == "__main__":
         print("Usage : python3 "+sys.argv[0]+" <fichier_binaire>")
         sys.exit(1)
 
-    print("Lecture du fichier "+sys.argv[1]+" ...\n")
+    print("Lecture du fichier "+sys.argv[1]+" ⏳ ...\n")
 
     chaine = lecture(sys.argv[1])
 

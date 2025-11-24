@@ -15,7 +15,7 @@ if __name__ == "__main__":
         print("Usage : python3 "+sys.argv[0]+" <fichier_textuel_src> <fichier_binaire_dest>")
         sys.exit(1)
 
-    print("Ecriture du contenu du fichier "+sys.argv[1]+" dans "+sys.argv[2]+" ...\n")
+    print("Ecriture du contenu du fichier "+sys.argv[1]+" dans "+sys.argv[2]+" ⏳ ...\n")
 
     ecriture(sys.argv[1], sys.argv[2])
 
