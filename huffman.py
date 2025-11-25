@@ -49,28 +49,6 @@ class ArbreHuffman:
             self.estFilsGauche = estFilsGauche
             self.filsGauche = filsGauche
             self.filsDroit = filsDroit
-        
-        def majPoids(self):
-            """
-            Met à jour récursivement, depuis le noeud actuel jusqu'à la racine, les nouveaux poids des noeuds visités.
-            """
-
-            # Cas spécial d'une feuille, on ne modifie pas son poids
-            if (self.filsGauche == None and self.filsDroit == None):
-                if (self.parent != None):
-                    self.parent.majPoids()
-            
-            else:
-
-                # On récupère les poids des enfants
-                self.poids = 0
-                if (self.filsGauche != None):
-                    self.poids += self.filsGauche.poids
-                if (self.filsDroit != None):
-                    self.poids += self.filsDroit.poids
-
-                if (self.parent != None):
-                    self.parent.majPoids()
 
         def __str__(self) -> str:
             """
@@ -185,13 +163,13 @@ class ArbreHuffman:
 
         matrice = [[]] # Contient dans le sous tableau en index i, les noeuds en profondeur i dans l'arbre (dans l'ordre de gauche à droite)
 
-        noeudsDejaVus : list[ArbreHuffman.Noeud] = []
+        noeudsDejaVus : set[ArbreHuffman.Noeud] = set()
         noeudsAVoir : list[tuple[ArbreHuffman.Noeud, int]] = [(self.racine, 0)]  # (noeud, profondeur)
 
         # Parcours en profondeur de l'arbre
         while (len(noeudsAVoir) > 0):
             noeud, profondeur = noeudsAVoir.pop()
-            if (noeud not in noeudsDejaVus):
+            if (noeud not in noeudsDejaVus): # On utilise un set pour ne pas avoir à itérer sur tout 'noeudsDejaVus'.
 
                 if (profondeur < len(matrice)):
                     matrice[profondeur].append(noeud)
@@ -208,7 +186,7 @@ class ArbreHuffman:
                     noeudsAVoir.append((noeud.filsDroit, profondeur + 1))
                 if (noeud.filsGauche != None):
                     noeudsAVoir.append((noeud.filsGauche, profondeur + 1))
-                noeudsDejaVus.append(noeud)
+                noeudsDejaVus.add(noeud)
 
         matriceInverse = matrice[::-1] # Inversion des lignes, pour passer d'un parcours de l'arbre du haut vers le bas, à bas vers le haut
         parcours = [noeud for sousListe in matriceInverse for noeud in sousListe] # Applatissement
@@ -240,13 +218,13 @@ class ArbreHuffman:
 
         matrice = [[]] # Contient dans le sous tableau en index i, les noeuds en profondeur i dans l'arbre (dans l'ordre de gauche à droite)
 
-        noeudsDejaVus : list[ArbreHuffman.Noeud] = []
+        noeudsDejaVus : set[ArbreHuffman.Noeud] = set()
         noeudsAVoir : list[tuple[ArbreHuffman.Noeud, int]] = [(self.racine, 0)]  # (noeud, profondeur)
 
         # Parcours en profondeur de l'arbre
         while (len(noeudsAVoir) > 0):
             noeud, profondeur = noeudsAVoir.pop()
-            if (noeud not in noeudsDejaVus):
+            if (noeud not in noeudsDejaVus): # On utilise un set pour ne pas avoir à itérer sur tout 'noeudsDejaVus'.
 
                 if (profondeur < len(matrice)):
                     matrice[profondeur].append(noeud)
@@ -264,7 +242,7 @@ class ArbreHuffman:
                         noeudsAVoir.append((noeud.filsDroit, profondeur + 1))
                     if (noeud.filsGauche != None):
                         noeudsAVoir.append((noeud.filsGauche, profondeur + 1))
-                noeudsDejaVus.append(noeud)
+                noeudsDejaVus.add(noeud)
 
         matriceInverse = matrice[::-1] # Inversion des lignes, pour passer d'un parcours de l'arbre du haut vers le bas, à bas vers le haut
         parcours = [noeud for sousListe in matriceInverse for noeud in sousListe] # Applatissement
@@ -314,7 +292,7 @@ class ArbreHuffman:
         # On va remonter l'arbre, tout en avançant en même temps dans le parcours GDBH
         while (m.parent != None):
             
-            # On est dans le parcours GDBH à la case du noeud m considéré
+            # On est dans le parcours GDBH à la case du noeud m considéré (forcément vrai pour la 1ère itération dans la boucle)
             if (parcoursGDBH[i_parcoursGDBH] == m):
                 if (m.poids == parcoursGDBH[i_parcoursGDBH+1].poids):
                     return m
