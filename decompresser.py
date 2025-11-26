@@ -30,11 +30,12 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
             arbre = ArbreHuffman()
 
             # Lit le 1er caractère et l'ajoute à l'arbre
-            c, nbOctetsLus = bitsToChar(bits, i)
-            texte += c
-            nbOctetsSortie += nbOctetsLus
-            i += nbOctetsLus * 8
-            arbre.modification(c)
+            if (len(bits) > 0):
+                c, nbOctetsLus = bitsToChar(bits, i)
+                texte += c
+                nbOctetsSortie += nbOctetsLus
+                i += nbOctetsLus * 8
+                arbre.modification(c)
 
             l = len(bits)
             while i + 8 <= l:  # Au moins 1 octet disponible
@@ -77,7 +78,10 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
             with open(fichier_texte, "w", encoding="utf-8") as f2:
                 f2.write(texte)
 
-        taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
+        if (nbOctetsEntree > 0):
+            taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
+        else:
+            taux_compression = 0
         end_time = time.perf_counter()
         temps_compression_ms = round((end_time - start_time) * 1000, 3)
 

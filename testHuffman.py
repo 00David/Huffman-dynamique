@@ -23,12 +23,14 @@ if __name__ == "__main__":
 
     print("Insertion terminée")
 
-
     for c in set(chaine):
         noeudC = arbre.getNoeudCaractere(c)
         assert noeudC is not None
-        frequenceC = noeudC.poids
-        print("Code de '"+c+"', de fréquence "+str(frequenceC)+" : "+arbre.getCodeCaractere(c))
+        print("Code de '"+c+"', de fréquence "+str(noeudC.poids)+" : "+arbre.getCodeCaractere(c))
+
+    noeudSpecial = arbre.getNoeudCaractere("##")
+    assert noeudSpecial is not None
+    print("Code de '##', de fréquence "+str(noeudSpecial.poids)+" : "+arbre.getCodeCaractere("##"))
 
     print("Parcours GDBH de l'arbre :")
     print(arbre)

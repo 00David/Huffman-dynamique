@@ -5,3 +5,6 @@ TestPerfSamples/Exemples/Blaise_Pascal.txt;TestPerfSamples/Binaires/Blaise_Pasca
 TestPerfSamples/Exemples/Blaise_Pascal.txt;TestPerfSamples/Binaires/Blaise_Pascal_res.huff;118026;66246;0.56128;3367.115
 TestPerfSamples/Exemples/Blaise_Pascal.txt;TestPerfSamples/Binaires/Blaise_Pascal_res.huff;118026;66246;0.56128;3328.589
 TestPerfSamples/Exemples/Blaise_Pascal.txt;TestPerfSamples/Binaires/Blaise_Pascal_res.huff;118026;66246;0.56128;1968.858
+TestPerfSamples/Exemples/Blaise_Pascal.txt;TestPerfSamples/Binaires/Blaise_Pascal_res.huff;118026;66246;0.56128;1924.682
+TestPerfSamples/Textes/exemple1.txt;TestPerfSamples/Binaires/exemple1.huff;2194;1245;0.56746;41.554
+TestPerfSamples/Textes/exemple2.txt;TestPerfSamples/Binaires/exemple2.huff;275;220;0.8;7.045

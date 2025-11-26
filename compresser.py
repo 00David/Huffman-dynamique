@@ -47,7 +47,10 @@ def compression(fichier_texte : str, fichier_binaire : str) -> None:
             with open(fichier_binaire, "wb") as f2:
                 f2.write(bytes(octets))
 
-        taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
+        if (nbOctetsEntree > 0):
+            taux_compression = round(nbOctetsSortie/nbOctetsEntree, 5)
+        else:
+            taux_compression = 0
         end_time = time.perf_counter()
         temps_compression_ms = round((end_time - start_time) * 1000, 3)
 

@@ -436,7 +436,7 @@ class ArbreHuffman:
         
         # Arbre ne contenant pas le nouveau caractère
         elif s not in self.noeudsCaracteres:
-            Q = self.special.parent
+            Q = self.special.parent # Q est forcément non None, le parent de la racine du nouveau sous-arbre
             assert Q is not None
             nouveau = self.remplaceSpecial(s)
 
