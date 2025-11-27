@@ -7,6 +7,7 @@ import time
 def decompression(fichier_binaire : str, fichier_texte : str) -> None:
         """
         Décompresse le contenu binaire de 'fichier_binaire' dans le fichier textuel 'fichier_texte'.
+        Les bits de padding peuvent amener l'algo à ajouter un ou plusieurs caractères parasites à la fin.
 
         Args:
             fichier_binaire (str): Nom du fichier binaire depuis lequel extraire le texte compressé.
@@ -38,7 +39,7 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
                 arbre.modification(c)
 
             l = len(bits)
-            while i + 8 <= l:  # Au moins 1 octet disponible
+            while i < l: # On parcourt chaque bit du binaire
 
                 noeud = arbre.racine
                 # Parcourt l'arbre de la racine vers une feuille
@@ -55,9 +56,9 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
                 # On est arrivé sur une feuille
                 if isinstance(noeud, ArbreHuffman.NoeudFeuille):
                     if noeud.caractere == "##":
-                        # Vérifie qu'on a bien assez de bits restants
+                        # Vérifie qu'on a bien assez de bits restants (pour décoder en un caractère UTF-8)
                         if i + 8 > l:
-                            break  # On arrête proprement (évite un caractère parasite)
+                            break  # On arrête proprement
 
                         # Lecture du caractère dans les octets suivants
                         c, nbOctetsLus = bitsToChar(bits, i)

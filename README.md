@@ -35,7 +35,7 @@ python3 ./testHuffman.py carambarbcm
 
 Les différents samples de tests sont dans le répertoire *TestPerfSamples*.  
 - Dans son sous-répertoire *Exemples* : des samples fournis.  
-- Dans son sous-répertoire *Textes* : des fichiers textuels créés manuellement.  
+- Dans son sous-répertoire *Textes* : des fichiers textuels créés manuellement ou recueillis via le projet Gutenberg.  
 - Dans son sous-répertoire *TextesDecompresses* : des fichiers textuels créés par décompression de binaires.  
 - Dans son sous-répertoire *TextesAleatoires* : des fichiers textes créés aléatoirement par le code python local.  
 - Dans son sous-répertoire *Binaires* : des fichiers binaires créés (par compression de textes).  
