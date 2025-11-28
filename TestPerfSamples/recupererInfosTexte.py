@@ -54,8 +54,11 @@ if __name__ == "__main__":
     # Calcul des probabilités
     probas = {c: frequences[c]/nb_total for c in frequences}   
 
+    
+    probas_tries = sorted(probas.items(), key=lambda item: item[1], reverse=True)
+
     # Les 5 caractères les plus fréquents
-    top5 = sorted(probas.items(), key=lambda item: item[1], reverse=True)[:5]
+    top5 = probas_tries[:5]
 
     print(f"Hauteur finale de l'AHA : {hauteur}")
     print(f"Profondeur moyenne : {(sommeProfondeur/len(noeudsDejaVus)):.2f}")
@@ -65,3 +68,18 @@ if __name__ == "__main__":
     for caractere, p in top5:
         print(f"'{caractere}' : {p*100:.2f}")
 
+    def somme_top_k(k):
+        if k > nb_uniques:
+            print(f"⚠️ Pas assez de caractères uniques pour top {k} (uniques = {nb_uniques})")
+            return None
+        return sum(p for _, p in probas_tries[:k])
+
+    # Listes des valeurs demandées
+    top_list = [5, 10, 20, 50, 100, 500, 1000]
+
+    print("\nSomme cumulée des fréquences des k caractères les plus fréquents :")
+    for k in top_list:
+        if (k <= nb_uniques):
+            resultat = somme_top_k(k)
+            if resultat is not None:
+                print(f"Top {k:<5} → {resultat*100:.2f}%")

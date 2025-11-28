@@ -8,3 +8,10 @@ TestPerfSamples/Binaires/large_sample1.huff;TestPerfSamples/TextesDecompresses/l
 TestPerfSamples/Binaires/large_sample2.huff;TestPerfSamples/TextesDecompresses/large_sample2_res.json;7784;19957;2.56385;188.276
 TestPerfSamples/Binaires/exemple1.huff;TestPerfSamples/TextesDecompresses/exemple1_res.txt;1245;2194;1.76225;38.878
 TestPerfSamples/Binaires/exemple2.huff;TestPerfSamples/TextesDecompresses/exemple2_res.txt;220;275;1.25;17.014
+TestPerfSamples/Binaires/latin1.huff;TestPerfSamples/TextesDecompresses/latin1_res.txt;16079;25061;1.55862;9301.384
+TestPerfSamples/Binaires/latin2.huff;TestPerfSamples/TextesDecompresses/latin2_res.txt;15522;25164;1.62118;7629.861
+TestPerfSamples/Binaires/fr1.huff;TestPerfSamples/TextesDecompresses/fr1_res.txt;1025;1202;1.17268;97.047
+TestPerfSamples/Binaires/fr2.huff;TestPerfSamples/TextesDecompresses/fr2_res.txt;986;1208;1.22515;84.534
+TestPerfSamples/Binaires/fr3.huff;TestPerfSamples/TextesDecompresses/fr3_res.txt;4510;5904;1.30909;493.311
+TestPerfSamples/Binaires/fr4.huff;TestPerfSamples/TextesDecompresses/fr4_res.txt;8851;11994;1.3551;928.168
+TestPerfSamples/Binaires/fr5.huff;TestPerfSamples/TextesDecompresses/fr5_res.txt;8501;11756;1.3829;723.622

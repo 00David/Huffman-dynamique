@@ -52,7 +52,7 @@ def fichierAleatoire(fichier: str, n: int, langue: str = "fr", unbalanced : bool
     caracteres.extend(['\n', '\r', '\t', ' ']) # Ajout de caractères de contrôle pour aérer
 
     if (unbalanced):
-        poids = [random.random() for _ in caracteres]
+        poids = [random.randint(0, 10000) for _ in caracteres]
         texte = ''.join(random.choices(caracteres, weights=poids, k=n))
     else:
         texte = ''.join(random.choice(caracteres) for _ in range(n))
@@ -75,7 +75,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     langue = "fr"
-    if (len(sys.argv) == 4):
+    if (len(sys.argv) >= 4):
         if (int(sys.argv[3]) == 1):
             langue = "fr"
         elif (int(sys.argv[3]) == 2):
