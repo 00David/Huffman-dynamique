@@ -31,12 +31,15 @@ if __name__ == "__main__":
     noeudsAVoir : list[tuple[ArbreHuffman.Noeud, int]] = [(arbre.racine, 0)]  # (noeud, profondeur)
     hauteur = 0
     sommeProfondeur = 0
+    sommePoids = 0
 
     # Parcours en profondeur de l'arbre pour récupérer la hauteur
     while (len(noeudsAVoir) > 0):
         noeud, profondeur = noeudsAVoir.pop()
         if (noeud not in noeudsDejaVus):
-            sommeProfondeur += profondeur
+            if isinstance(noeud, ArbreHuffman.NoeudFeuille):
+                sommeProfondeur += (profondeur*noeud.poids)
+                sommePoids += noeud.poids
             if profondeur > hauteur:
                 hauteur = profondeur
             if (noeud.filsDroit != None):
@@ -61,7 +64,7 @@ if __name__ == "__main__":
     top5 = probas_tries[:5]
 
     print(f"Hauteur finale de l'AHA : {hauteur}")
-    print(f"Profondeur moyenne : {(sommeProfondeur/len(noeudsDejaVus)):.2f}")
+    print(f"Longueur moyenne pondérée des codes : {(sommeProfondeur/sommePoids):.2f}")
     print(f"Nombre total de caractères : {nb_total}")
     print(f"Nombre de caractères uniques : {nb_uniques}")
     print("Top 5 des caractères les plus fréquents (%) :")

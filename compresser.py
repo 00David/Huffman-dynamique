@@ -29,10 +29,10 @@ def compression(fichier_texte : str, fichier_binaire : str) -> None:
                 bitsC = charToBits(c)
                 nbOctetsEntree += int(len(bitsC)/8)
                 
-                if (arbre.getNoeudCaractere(c) == None): # Si première occurrence du caractère (n'est pas encore dans l'arbre)
-                    bits = bits + arbre.getCodeCaractere("##") + bitsC
-                else:
+                try :
                     bits = bits + arbre.getCodeCaractere(c)
+                except ValueError: # Si première occurrence du caractère (n'est pas encore dans l'arbre)
+                    bits = bits + arbre.getCodeCaractere("##") + bitsC
                 arbre.modification(c)
 
             # On complète le dernier octet si nécessaire

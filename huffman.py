@@ -273,7 +273,7 @@ class ArbreHuffman:
     def cheminIncrementable(self, noeud : Noeud, parcoursGDBH : list[Noeud] = [])->Noeud:
         """
         Parcourt le chemin depuis le 'noeud' donné jusqu'à la racine, et renvoit le premier noeud 'm' du chemin <br>
-        tel que son poids == poids noeud suivant dans le chemin. <br>
+        tel que son poids == poids noeud suivant dans le parcours GDBH. <br>
         Si ce noeud retourné est le noeud racine, alors le chemin entier est incrémentable.
 
         Args:
@@ -281,7 +281,7 @@ class ArbreHuffman:
             parcours (Optionnal[list[Noeud]]): Le parcours GDBH de l'arbre, si déjà calculé.
 
         Returns:
-            Noeud: Le premier noeud 'm' du chemin tel que son poids == poids noeud suivant dans le chemin. 
+            Noeud: Le premier noeud 'm' du chemin tel que son poids == poids noeud suivant dans le parcours GDBH. 
         """
         if (parcoursGDBH == []):
             parcoursGDBH = self.parcoursGDBHDepuisNoeud(noeud)

@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 
 # Exemple de données
-tailles = [115527, 202890, 449955, 645593]  # X-axis
-labels_x = ["~115k", "~203k", "~450k", "~646k"]  # Labels personnalisés
-temps_comp = [2000.911, 3303.086, 7215.022, 10516.958]
-temps_decomp = [1802.949, 3083.083, 6719.883, 9692.172]
-fichiers = ["Blaise_Pascal", "La_morale_\nde_Nietzsche", "Indiens", "Peninsule_des_Balkans"]
+tailles = [0, 115527, 202890, 449955, 645593]  # X-axis
+labels_x = ["0","~115k", "~203k", "~450k", "~646k"]  # Labels personnalisés
+temps_comp = [0,1937.494, 3305.375, 7417.262, 10595.061]
+temps_decomp = [0,1802.949, 3083.083, 6719.883, 9692.172]
+fichiers = ["","Blaise_Pascal", "La_morale_\nde_Nietzsche", "Indiens", "Peninsule_des_Balkans"]
 
 plt.figure(figsize=(10,6))
 
@@ -19,7 +19,7 @@ plt.ylim(bottom=0)
 
 # Labels et titre
 plt.xlabel("Nombre total de caractères", labelpad=30)
-plt.ylabel("Temps")
+plt.ylabel("Temps (ms)")
 plt.title("Analyse des performances question 8", pad=20)
 plt.legend()
 plt.grid(True)
