@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 # Exemple de données
 tailles = [0, 115527, 202890, 449955, 645593]  # X-axis
 labels_x = ["0","~115k", "~203k", "~450k", "~646k"]  # Labels personnalisés
-temps_comp = [0,1937.494, 3305.375, 7417.262, 10595.061]
-temps_decomp = [0,1802.949, 3083.083, 6719.883, 9692.172]
+temps_comp = [0,999.594, 1702.448, 3899.851, 5664.194]
+temps_decomp = [0,927.84, 1570.629, 3430.94, 5050.599]
 fichiers = ["","Blaise_Pascal", "La_morale_\nde_Nietzsche", "Indiens", "Peninsule_des_Balkans"]
 
 plt.figure(figsize=(10,6))
