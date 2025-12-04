@@ -3,9 +3,9 @@ from tools import ecriture
 import sys
 
 """
-On teste l'écriture du contenu d'un fichier texte dans un fichier binaire.
+On teste l'écriture du contenu d'un fichier texte contenant des bits dans un fichier binaire.
 
-Argument 1 : Un fichier textuel source
+Argument 1 : Un fichier textuel source contenant des bits
 Argument 2 : Un fichier binaire de destination
 """
 

@@ -216,7 +216,7 @@ class ArbreHuffman:
 
         Args:
             noeud (Noeud): Le noeud à considérer.
-            parcours (Optionnal[deque[Noeud]] | None): Le parcours GDBH de l'arbre, si déjà calculé. Sinon None.
+            parcours (Optionnal[deque[Noeud]] | None): Le parcours GDBH depuis le noeud, si déjà calculé. Sinon None.
         """
         # Cas spécial racine
         if (noeud.parent is None):
@@ -225,11 +225,19 @@ class ArbreHuffman:
         if (parcoursGDBH is None):
             parcoursGDBH = self.parcoursGDBHDepuisNoeud(noeud)
 
-        for i in range(parcoursGDBH.index(noeud)+1, len(parcoursGDBH)-1): # dernier i = len(parcoursGDBH)-2. À l'index len(parcoursGDBH)-1, soit le dernier du parcours, il ne reste que la racine.
-            if (parcoursGDBH[i].poids < parcoursGDBH[i+1].poids):
-                return parcoursGDBH[i]
+        noeudAtteint = False # Indique si l'on a atteint le noeud donné en paramètre, lors du parcours GDBH.
+        nPrecedant = None # Le noeud précédant dans le parcours GDBH.
+        for n in parcoursGDBH:
+            if (n is noeud):
+                noeudAtteint = True
+                nPrecedant = n
+                continue # On passe directement au noeud suivant dans le parcours GDBH
+            if (noeudAtteint and nPrecedant.poids < n.poids):
+                assert nPrecedant is not None
+                return nPrecedant
+            nPrecedant = n
 
-        # Si on arrive jusqu'ici, c'est qu'il ne reste que la racine dans le parcours GDBH à voir => est en fin de bloc
+        # Innateignable normalement
         return self.racine
     
     def cheminIncrementable(self, noeud : Noeud, parcoursGDBH : deque[Noeud] | None = None)->Noeud:
@@ -240,7 +248,7 @@ class ArbreHuffman:
 
         Args:
             noeud (Noeud): Le noeud à partir duquel faire le chemin.
-            parcours (Optionnal[deque[Noeud]] | None): Le parcours GDBH de l'arbre, si déjà calculé. Sino None.
+            parcours (Optionnal[deque[Noeud]] | None): Le parcours GDBH depuis le noeud, si déjà calculé. Sinon None.
 
         Returns:
             Noeud: Le premier noeud 'm' du chemin tel que son poids == poids noeud suivant dans le parcours GDBH. 
@@ -352,7 +360,7 @@ class ArbreHuffman:
 
         Args:
             Q (Noeud): Noeud ayant apporté une modification à l'arbre.
-            parcours (Optionnal[list[Noeud]]): Le parcours GDBH de l'abre, si déjà calculé pour l'arbre actuel. Sinon None.
+            parcours (Optionnal[list[Noeud]]): Le parcours GDBH depuis le noeud Q, si déjà calculé pour l'arbre actuel. Sinon None.
             Pas None pour 1er appel par modification, None pour appels récursifs suivants.
             
         Returns:
@@ -376,7 +384,7 @@ class ArbreHuffman:
         
         else:
             
-            b = self.finBloc(m, parcoursGDBH)
+            b = self.finBloc(m, parcoursGDBH) # On réutilise le parcours GDBH depuis Q, b y étant forcément
 
             # Ajoute 1 à chaque poids du chemin de Q a Q_m
             while (Q is not m and Q.parent is not None):

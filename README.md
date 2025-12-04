@@ -1,11 +1,20 @@
 # Huffman-dynamique
 
 **David VADIMON**  
-**Eduardo-Dimo ONICA**  
 
-## Langage utilisé
+## Entrées/Sorties du code
 
-**Python** : version 3.13.5  
+Comme spécifié dans le sujet :  
+
+Pour lancer une **compression**, par exemple depuis le répertoire racine :
+```bash
+./compresser.sh TestPerfSamples/Textes/exemple1.txt TestPerfSamples/Binaires/exemple1.huff
+```
+
+Pour lancer une **décompression**, par exemple depuis le répertoire racine :
+```bash
+./decompresser.sh TestPerfSamples/Binaires/exemple1.huff TestPerfSamples/TextesDecompresses/exemple1_res.txt
+```
 
 ## Tests lecture/écriture
 
@@ -46,7 +55,7 @@ La fonction de compression est dans *compresser.py*, les infos des compressions 
 
 Pour utiliser directement le programme de compression, par exemple depuis le répertoire racine :  
 ```bash
-python3 ./compresser.py TestPerfSamples/Textes/exemple1.txt TestPerfSamples/Binaires/exemple1.huff  
+python3 ./compresser.py TestPerfSamples/Textes/exemple1.txt TestPerfSamples/Binaires/exemple1.huff
 ```
 
 ### Décompression
@@ -55,7 +64,7 @@ La fonction de décompression est dans *decompresser.py*, les infos des décompr
 
 Pour utiliser directement le programme de décompression, par exemple depuis le répertoire racine :  
 ```bash
-python3 ./decompresser.py TestPerfSamples/Binaires/exemple1.huff TestPerfSamples/Textes/exemple1_decompresse.txt  
+python3 ./decompresser.py TestPerfSamples/Binaires/exemple1.huff TestPerfSamples/TextesDecompresses/exemple1_res.txt
 ```
 
 ## Génération aléatoire de textes
@@ -82,6 +91,13 @@ Autre exemple, pour lequel un fichier de 1000 caractères utf-8, avec probas uni
 ```bash
 cd TestPerfSamples/TextesAleatoires
 python3 ./genererTexte.py utf8_1000.txt 1000 3 0
+```
+
+## Récupération des infos d'un fichier texte (utilisé pour l'analyse)
+
+```bash
+cd TestPerfSamples
+python3 ./recupererInfosTexte.py Textes/exemple2.txt
 ```
 
 ## Rapport
