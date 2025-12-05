@@ -8,12 +8,12 @@ Comme spécifié dans le sujet :
 
 Pour lancer une **compression**, par exemple depuis le répertoire racine :
 ```bash
-./compresser.sh TestPerfSamples/Textes/exemple1.txt TestPerfSamples/Binaires/exemple1.huff
+bash compresser.sh TestPerfSamples/Textes/exemple1.txt TestPerfSamples/Binaires/exemple1.huff
 ```
 
 Pour lancer une **décompression**, par exemple depuis le répertoire racine :
 ```bash
-./decompresser.sh TestPerfSamples/Binaires/exemple1.huff TestPerfSamples/TextesDecompresses/exemple1_res.txt
+bash decompresser.sh TestPerfSamples/Binaires/exemple1.huff TestPerfSamples/TextesDecompresses/exemple1_res.txt
 ```
 
 ## Tests lecture/écriture
