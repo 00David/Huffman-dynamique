@@ -233,7 +233,6 @@ class ArbreHuffman:
                 nPrecedant = n
                 continue # On passe directement au noeud suivant dans le parcours GDBH
             if (noeudAtteint and nPrecedant.poids < n.poids):
-                assert nPrecedant is not None
                 return nPrecedant
             nPrecedant = n
 
@@ -394,7 +393,6 @@ class ArbreHuffman:
 
             self.swapNoeuds(m, b)
 
-            assert m.parent is not None
             return self.traitement(m.parent)
             
 
@@ -418,7 +416,6 @@ class ArbreHuffman:
         # Arbre ne contenant pas le nouveau caractère
         elif s not in self.noeudsCaracteres:
             Q = self.special.parent # Q est forcément non None, le parent de la racine du nouveau sous-arbre
-            assert Q is not None
             nouveau = self.remplaceSpecial(s)
 
             if (nouveau.estFilsGauche):
@@ -430,14 +427,12 @@ class ArbreHuffman:
         # Arbre contenant déjà une feuille pour le caractère
         else:
             Q = self.getNoeudCaractere(s)
-            assert Q is not None
 
             parcoursGDBH = self.parcoursGDBHDepuisNoeud(Q)
 
             if ({Q.parent.filsGauche, Q.parent.filsDroit} == {Q, self.special} and Q.parent is self.finBloc(Q, parcoursGDBH)):
                 Q.poids += 1
                 Q = Q.parent
-                assert Q is not None
                 # Même si on change Q, l'arbre n'est pas modifié donc le parcoursGDBH actuel reste le même : pas besoin de le recalculer
 
             return self.traitement(Q, parcoursGDBH)
