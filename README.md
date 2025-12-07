@@ -2,6 +2,14 @@
 
 **David VADIMON**  
 
+## Rapport
+
+[Rapport_projet_VADIMON.pdf](Rapport_projet_VADIMON.pdf)
+
+## Transparents de la soutenance
+
+[Transparents_projet_VADIMON.pdf](Transparents_projet_VADIMON.pdf)
+
 ## Entrées/Sorties du code
 
 Comme spécifié dans le sujet :  
@@ -15,6 +23,8 @@ Pour lancer une **décompression**, par exemple depuis le répertoire racine :
 ```bash
 bash decompresser.sh TestPerfSamples/Binaires/exemple1.huff TestPerfSamples/TextesDecompresses/exemple1_res.txt
 ```
+
+Étant donné que l'algorithme de décompression n'a aucun moyen de savoir quand les bits du texte compressé ont été entièrement visités, il va donc également visiter les bits '0' de padding en fin, et en fonction peut ajouter un ou plusieurs caractères parasites si ces '0' le font tomber sur une feuille dans l'arbre de Huffman.   
 
 ## Tests lecture/écriture
 
@@ -99,7 +109,3 @@ python3 ./genererTexte.py utf8_1000.txt 1000 3 0
 cd TestPerfSamples
 python3 ./recupererInfosTexte.py Textes/exemple2.txt
 ```
-
-## Rapport
-
-Rapport en cours : https://docs.google.com/document/d/1hVoRpPxILBle7SVB9faODcC2caK9vX3ghW3W4SfRwnM/edit?usp=sharing  
