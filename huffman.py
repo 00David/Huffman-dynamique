@@ -356,11 +356,12 @@ class ArbreHuffman:
     def traitement(self, Q : Noeud, parcoursGDBH : deque[Noeud] | None = None) -> ArbreHuffman:
         """
         S'occupe du traitement de l'arbre de Huffman actuel.
+        Version d'après la soutenance (les seules modifications par rapport à la version d'avant sont les 5 dernières lignes de code de la méthode).
 
         Args:
             Q (Noeud): Noeud ayant apporté une modification à l'arbre.
-            parcours (Optionnal[list[Noeud]]): Le parcours GDBH depuis le noeud Q, si déjà calculé pour l'arbre actuel. Sinon None.
-            Pas None pour 1er appel par modification, None pour appels récursifs suivants.
+            parcours (Optionnal[list[Noeud]]): Le parcours GDBH depuis le noeud Q, si déjà calculé pour l'arbre actuel. Sinon None. <br>
+            parcours jamais None lorsque initialement appelé par modification (parcours GDBH est fourni au 1er appel et aux appels récursifs, et est réduit lors de ces appels).
             
         Returns:
             ArbreHuffman : L'arbre actuel, après modification (pas une copie).
@@ -393,8 +394,14 @@ class ArbreHuffman:
 
             self.swapNoeuds(m, b)
 
-            return self.traitement(m.parent)
-            
+            # Ajout par rapport à version d'avant soutenance
+            # Réduction du parcours GDBH : on enlève tous les noeuds du parcours GDBH, jusqu'à arriver au nouveau m.parent
+            noeudAEnlever = parcoursGDBH.popleft()
+            while (noeudAEnlever is not m.parent):
+                noeudAEnlever = parcoursGDBH.popleft()
+            parcoursGDBH.appendleft(noeudAEnlever) # m.parent enlevé, puis réajouté en tête du parcours 
+
+            return self.traitement(m.parent, parcoursGDBH) # paramètre parcoursGDBH ajouté par rapport à version d'avant soutenance
 
     def modification(self, s : str) -> ArbreHuffman:
         """

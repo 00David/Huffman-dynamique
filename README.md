@@ -10,6 +10,11 @@
 
 [Transparents_projet_VADIMON.pdf](Transparents_projet_VADIMON.pdf)
 
+## Modifications suite à la soutenance
+
+Je n'ai effectué qu'une légère modification du code à la fin de la méthode de traitement dans le fichier '*huffman.py*' (plus de précisions à la fin du rapport).  
+Les transparents de la soutenance ont été gardés originaux, tandis que mes graphes dans mon rapport ont été refaits avec les nouvelles mesures temporelles.  
+
 ## Entrées/Sorties du code
 
 Comme spécifié dans le sujet :  
