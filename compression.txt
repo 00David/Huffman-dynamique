@@ -13,3 +13,5 @@ TestPerfSamples/TextesAleatoires/fr4.txt;TestPerfSamples/Binaires/fr4.huff;12068
 TestPerfSamples/TextesAleatoires/fr5.txt;TestPerfSamples/Binaires/fr5.huff;11791;8544;0.72462;257.875
 TestPerfSamples/TextesAleatoires/latin1.txt;TestPerfSamples/Binaires/latin1.huff;25078;16102;0.64208;2480.124
 TestPerfSamples/TextesAleatoires/latin2.txt;TestPerfSamples/Binaires/latin2.huff;25178;15544;0.61736;2016.592
+TestPerfSamples/Textes/exemple1.txt;TestPerfSamples/Binaires/exemple1.huff;2215;1267;0.57201;18.701
+TestPerfSamples/Textes/exemple2.txt;TestPerfSamples/Binaires/exemple2.huff;279;225;0.80645;3.089
