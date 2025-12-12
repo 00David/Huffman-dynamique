@@ -27,7 +27,7 @@ axes[0].grid(True)
 
 # Ajouter les noms de fichiers (en bas)
 for x, f in zip(tailles, fichiers):
-    axes[0].text(x, -60, f, ha='center', va='top')
+    axes[0].text(x, -50, f, ha='center', va='top')
 
 # Ajustement automatique pour éviter chevauchements
 plt.subplots_adjust(bottom=0.25, hspace=0.5)
@@ -41,7 +41,7 @@ axes[1].axhline(0, color='black', linewidth=0.8)
 
 # Ajouter les noms de fichiers sous les barres
 for i, f in enumerate(fichiers[1:]):
-    axes[1].text(i, -2, f, ha='center', va='top', rotation=0)
+    axes[1].text(i, -1.5, f, ha='center', va='top', rotation=0)
 
 # Ajouter les valeurs sur les barres
 for i, v in enumerate(diff[1:]):
