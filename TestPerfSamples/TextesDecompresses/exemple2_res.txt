@@ -1,5 +1,0 @@
-Voici un texte contenant des symboles #️⃣
-Première ligne avec un hashtag : #informatique 💻
-Deuxième ligne avec plusieurs hashtags : #python 🐍  #pdf 📄  #chatGPT 🤖
-Les hashtags peuvent être utilisés pour organiser des idées 📌💡
-Fin du texte. #fin 🏁

@@ -14,7 +14,7 @@ if __name__ == "__main__":
     print("Lecture fichier "+fichier+" et insertions dans un nouvel AHA ⏳ ...\n")
 
     contenu = ""
-    with open(fichier, "r", encoding="utf-8") as f:
+    with open(fichier, "r", newline='', encoding="utf-8") as f:
         contenu = f.read()
 
     frequences = dict()

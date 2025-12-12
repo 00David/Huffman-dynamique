@@ -17,7 +17,7 @@ def compression(fichier_texte : str, fichier_binaire : str) -> None:
         """
         start_time = time.perf_counter()
         
-        with open(fichier_texte, "r", encoding="utf-8") as f: # Ne considère pas les '\r' dans les '\r\n' du fichier, ce qui fait que le nombre d'octes lus est un peu inférieur à la taille réelle du fichier.
+        with open(fichier_texte, "r", newline='', encoding="utf-8") as f: # newline : garde les '\r' dans les '\r\n' en fin de ligne
             contenu = f.read()
 
             bits = ""

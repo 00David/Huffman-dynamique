@@ -76,7 +76,7 @@ def decompression(fichier_binaire : str, fichier_texte : str) -> None:
                     break
 
             # Écriture dans le fichier textuel
-            with open(fichier_texte, "w", encoding="utf-8") as f2:
+            with open(fichier_texte, "w", newline='', encoding="utf-8") as f2: # newline : garde les '\r' dans les '\r\n' en fin de ligne
                 f2.write(texte)
 
         if (nbOctetsEntree > 0):

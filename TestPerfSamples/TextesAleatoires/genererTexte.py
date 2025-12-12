@@ -57,7 +57,7 @@ def fichierAleatoire(fichier: str, n: int, langue: str = "fr", unbalanced : bool
     else:
         texte = ''.join(random.choice(caracteres) for _ in range(n))
 
-    with open(fichier, "w", encoding="utf-8") as f:
+    with open(fichier, "w", newline='', encoding="utf-8") as f:
         f.write(texte)
 
 

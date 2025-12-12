@@ -64,7 +64,7 @@ def ecriture(fichier_chaine : str, fichier_binaire : str) -> None:
     if (suffixe_binaire != ".bin" and suffixe_huff != ".huff"):
         raise ValueError("'"+fichier_binaire+"' doit être un fichier .bin ou .huff")
 
-    with open(fichier_chaine, "r", encoding="utf-8") as f:
+    with open(fichier_chaine, "r", newline='', encoding="utf-8") as f:
         contenu = f.read()
 
         l = 0 # Nombre de bits
