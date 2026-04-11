@@ -52,15 +52,15 @@ python3 ./testToolsEcriture.py TestToolsSamples/chaine1.txt TestToolsSamples/cha
 python3 ./testToolsLecture.py TestToolsSamples/chaine1.bin
 ```
 
-## Huffman adaptative tree (HAT) construction Test
+## Adaptative Huffman tree (AHT) Construction Test
 
-All HAT manipulation methods, as well as its structure, are in *huffman.py*.  
+All AHT manipulation methods, as well as its structure, are in *huffman.py*.  
 
 To use the test program, for example from the root directory:  
 ```bash
 python3 ./testHuffman.py carambarbcm
 ```
-Note that it is possible to build the HAT step by step by successively calling the program with the strings 'c', then 'ca', then 'car', etc. until reaching 'carambarbcm'. Then, at each step the tree gives the expected codes.  
+Note that it is possible to build the AHT step by step by successively calling the program with the strings 'c', then 'ca', then 'car', etc. until reaching 'carambarbcm'. Then, at each step the tree gives the expected codes.  
 
 ## Compression/Decompression Test
 
