@@ -1,0 +1,10 @@
+[project]
+name = "huffman-dynamique"
+version = "1.0.0"
+description = "Compression et décompression de fichiers texte par arbre de Huffman dynamique"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.uv]
+package = false
